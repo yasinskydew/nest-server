@@ -4,6 +4,5 @@ export interface User extends Document{
     name: string,
     surname: string,
     password: string,
-    role: string,
-    tokens: object[]
+    role: string
 }

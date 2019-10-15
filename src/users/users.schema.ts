@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+
 export const UserSchema = new mongoose.Schema({
     login: {
         type: String,
@@ -21,12 +22,5 @@ export const UserSchema = new mongoose.Schema({
     role: {
         type:String,
         default: 'user'
-    },
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }],
+    }
 });
-
