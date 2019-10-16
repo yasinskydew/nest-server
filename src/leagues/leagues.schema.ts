@@ -1,4 +1,9 @@
 import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
+import { Injectable, Inject } from '@nestjs/common';
+import { League } from './interfaces/league.interface';
+
+
 
 export const LeagueSchema = new mongoose.Schema({
     title: {

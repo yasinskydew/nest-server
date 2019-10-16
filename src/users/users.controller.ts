@@ -5,8 +5,12 @@ import { AuthGuard } from '../shared/auth.guards';
 import { AdminGuard } from '../shared/roles.guargs';
 import { CurrentUser } from './users.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { ApiUseTags, ApiCreatedResponse, ApiBearerAuth, ApiImplicitParam } from '@nestjs/swagger';
+import { LoginUserDto } from './dto/login-user.dto';
 
-
+@ApiUseTags('users')
+@ApiBearerAuth()
 @Controller('users')
 
 export class UsersController {
@@ -24,32 +28,56 @@ constructor(private readonly usersService: UsersService) {}
     }
 
     @Post()
-    create(@Body() createUserDto): Promise<{ user: User, token: any }> {
+    @ApiBearerAuth()
+    @ApiCreatedResponse({ description: 'The record has been successfully created.', type: CreateUserDto })
+    create(@Body() createUserDto: CreateUserDto): Promise<{ user: User, token: any }> {
         return this.usersService.create(createUserDto);
     }
 
     @Post('login')
-    async login(@Body() loginUserDto): Promise<{user: User, token: any }> {
+    @ApiCreatedResponse({ description: 'The user has been successfully login.', type: LoginUserDto })
+    async login(@Body() loginUserDto: LoginUserDto): Promise<{user: User, token: any }> {
         return await this.usersService.login(loginUserDto)
     }
 
     @Put('me')
     @UseGuards(new AuthGuard())
+    @ApiCreatedResponse({ description: 'The record has been successfully updated.', type: UpdateUserDto })
     async updateUser(@CurrentUser() currentUser: User, @Body() updateUser: UpdateUserDto): Promise<User>{
         return await this.usersService.update(currentUser, updateUser)
     }
 
     @Delete('me')
     @UseGuards(new AuthGuard())
-    async deleteUser(@CurrentUser() currentUser: User, @Body() updateUser: UpdateUserDto): Promise<User>{
-        return await this.usersService.delete(currentUser, updateUser)
+    async deleteUser(@CurrentUser() currentUser: User): Promise<User>{
+        return await this.usersService.delete(currentUser)
     }
 
     @Get(':id')
+    @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
     async getUserById(@Param() userId: string): Promise<User>{
         return await this.usersService.getById(userId)
     }
+
+    @Get('leagues/:loginUser')
+    @ApiImplicitParam({ name: 'login' })
+    @UseGuards(new AdminGuard())
+    async getUserWithLeague(
+        @Param() loginUser: object
+        ): Promise<object>{
+        return await this.usersService.getLeague(loginUser)
+    }
+
+    @Get('races/:loginUser')
+    @ApiImplicitParam({ name: 'login' })
+    @UseGuards(new AdminGuard())
+    async getUserWithRace(
+        @Param() loginUser: object
+        ): Promise<object>{
+        return await this.usersService.getRace(loginUser)
+    }
+
 
 
 

@@ -3,11 +3,15 @@ import { StagesController } from './stages.controller';
 import { StagesService } from './stages.service';
 import { stagesProviders } from './stages.providers'
 import { DatabaseModule } from '../database/database.module'
+import { racesProviders } from '../races/races.providers';
 
 
 @Module({
   imports: [DatabaseModule],
   controllers: [StagesController],
-  providers: [StagesService, ...stagesProviders]
+  providers: [
+    StagesService, 
+    ...stagesProviders,
+    ...racesProviders]
 })
 export class StagesModule {}

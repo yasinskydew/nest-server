@@ -6,6 +6,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     if(!request.headers.authorization){
+
       return false;
     }
     request.user = await this.validateToken(request.headers.authorization);
@@ -13,9 +14,8 @@ export class AuthGuard implements CanActivate {
   }
 
   async validateToken(auth: string){
-    const token = auth.split(' ')[1];
     try {
-      const decoded = jwt.verify(token, 'expressapp');
+      const decoded = jwt.verify(auth, 'expressapp');
       return decoded;
     } catch (err) {
       throw new HttpException(onmessage, HttpStatus.FORBIDDEN)
