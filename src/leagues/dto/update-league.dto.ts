@@ -2,15 +2,15 @@ import { ApiModelProperty } from "@nestjs/swagger";
 
 export class UpdateLeagueDto {
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly title: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly description: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly season: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly users: any[];
 }

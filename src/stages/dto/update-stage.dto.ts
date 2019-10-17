@@ -2,15 +2,15 @@ import { ApiModelProperty } from "@nestjs/swagger";
 
 export class UpdateStageDto {
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly title: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly description: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly coords: [number, number];
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly league: any;
 }

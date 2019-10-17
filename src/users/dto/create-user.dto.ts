@@ -13,6 +13,6 @@ export class CreateUserDto {
     @ApiModelProperty()
     readonly password: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly role: string;
 }

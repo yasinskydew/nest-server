@@ -1,18 +1,18 @@
 import { ApiModelProperty } from "@nestjs/swagger";
 
 export class UpdateUserDto {
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly login: string;
 
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly name: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly surname: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly password: string;
     
-    @ApiModelProperty()
+    @ApiModelProperty({ required: false })
     readonly role: string;
 }

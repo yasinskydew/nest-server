@@ -6,6 +6,7 @@ import { Race } from '../races/interfaces/race.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs'
 
 @Injectable()
 export class UsersService {
@@ -28,9 +29,8 @@ export class UsersService {
 
     async create(createUserDto: CreateUserDto) {
         const user = new this.userModel(createUserDto);
-        const token = this.generateToken(user);
-        await user.save()
-        return {user, token} 
+        user.password = await bcrypt.hash(user.password, 8);
+        return await user.save()
     }
 
     async findAll(): Promise<User[]> {
@@ -43,7 +43,8 @@ export class UsersService {
         if(!user) {
             throw new Error('Unable user')
         }
-        if(user.password !== password){
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
             throw new Error('Unable to login')
         }
         const token = this.generateToken(user);
@@ -56,7 +57,8 @@ export class UsersService {
     }
 
     async update(currentUser, updateUser): Promise<User>{
-        return await this.userModel.findByIdAndUpdate(currentUser._id, updateUser)
+        updateUser.password = await bcrypt.hash(updateUser.password, 8);
+        return await this.userModel.findByIdAndUpdate(currentUser._id, updateUser);
     }
 
     async delete(currentUser): Promise<User>{
