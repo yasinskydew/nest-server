@@ -1,16 +1,22 @@
 import { ApiModelProperty } from "@nestjs/swagger";
+import { IsString, IsNotEmpty, IsArray } from "class-validator";
 
 export class UpdateStageDto {
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
+    @IsNotEmpty ()
     readonly title: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
+    @IsNotEmpty ()
     readonly description: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsArray()
     readonly coords: [number, number];
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
     readonly league: any;
 }

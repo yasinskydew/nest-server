@@ -22,17 +22,16 @@ export class RacesService {
         const race = new this.raceModel(createRaceDto);
         return await race.save() 
     }
-    async getById(idRace): Promise<Race>{
-        return await this.raceModel.findById(idRace.id)
+    async getById(idRace: string): Promise<Race>{
+        return await this.raceModel.findById(idRace)
     }
-    async updateById(idRace, updateRaceDto: UpdateRaceDto): Promise<Race>{
-        return await this.raceModel.findByIdAndUpdate(idRace.id, updateRaceDto)
+    async updateById(idRace: string, updateRaceDto: UpdateRaceDto): Promise<Race>{
+        return await this.raceModel.findByIdAndUpdate(idRace, updateRaceDto)
     }
-    async deleteById(idRace): Promise<Race>{
-        return await this.raceModel.findByIdAndRemove(idRace.id)
+    async deleteById(idRace: string): Promise<Race>{
+        return await this.raceModel.findByIdAndRemove(idRace)
     }
-    async getStage(seasonLeague){
-        const {season} = seasonLeague             
+    async getStage(season: string){          
         const result = await this.leagueModel.aggregate([
             {$match: {season}},
             {

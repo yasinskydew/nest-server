@@ -1,4 +1,4 @@
-import { Controller,Param, Get, Post, Put, Delete, Body, UseGuards, Catch } from '@nestjs/common';
+import { Controller,Param, Get, Post, Put, Delete, Body, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface'
 import { AuthGuard } from '../shared/auth.guards';
@@ -6,13 +6,13 @@ import { AdminGuard } from '../shared/roles.guargs';
 import { CurrentUser } from './users.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ApiUseTags, ApiCreatedResponse, ApiBearerAuth, ApiImplicitParam } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
+import { ApiUseTags, ApiCreatedResponse, ApiBearerAuth, ApiImplicitParam } from '@nestjs/swagger';
+
 
 @ApiUseTags('users')
 @ApiBearerAuth()
 @Controller('users')
-@Catch()
 
 export class UsersController {
 constructor(private readonly usersService: UsersService) {}
@@ -57,24 +57,24 @@ constructor(private readonly usersService: UsersService) {}
     @Get(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async getUserById(@Param() userId: string): Promise<User>{
+    async getUserById(@Param('id') userId: string): Promise<User>{
         return await this.usersService.getById(userId)
     }
 
     @Get('leagues/:loginUser')
-    @ApiImplicitParam({ name: 'login' })
+    @ApiImplicitParam({ name: 'loginUser' })
     @UseGuards(new AdminGuard())
     async getUserWithLeague(
-        @Param() loginUser: object
+        @Param('loginUser') loginUser: string
         ): Promise<object>{
         return await this.usersService.getLeague(loginUser)
     }
 
     @Get('races/:loginUser')
-    @ApiImplicitParam({ name: 'login' })
+    @ApiImplicitParam({ name: 'loginUser' })
     @UseGuards(new AdminGuard())
     async getUserWithRace(
-        @Param() loginUser: object
+        @Param('loginUser') loginUser: string
         ): Promise<object>{
         return await this.usersService.getRace(loginUser)
     }

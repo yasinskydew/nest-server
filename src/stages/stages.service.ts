@@ -21,15 +21,15 @@ export class StagesService {
         const stage = new this.stageModel(createStageDto);
         return await stage.save() 
     }
-    async getById(idStage): Promise<Stage>{
-        return await this.stageModel.findById(idStage.id)
+    async getById(idStage: string): Promise<Stage>{
+        return await this.stageModel.findById(idStage)
     }
-    async updateById(idStage, updateStageDto: UpdateStageDto): Promise<Stage>{
-        return await this.stageModel.findByIdAndUpdate(idStage.id, updateStageDto)
+    async updateById(idStage: string, updateStageDto: UpdateStageDto): Promise<Stage>{
+        return await this.stageModel.findByIdAndUpdate(idStage, updateStageDto)
     }
-    async deleteById(idStage): Promise<Stage>{
-        const stage = await this.stageModel.findById(idStage.id)
-        await this.raceModel.remove({stage: idStage.id}).exec();
+    async deleteById(idStage: string): Promise<Stage>{
+        const stage = await this.stageModel.findById(idStage)
+        await this.raceModel.remove({stage: idStage}).exec();
         return await stage.remove()
     }
 }

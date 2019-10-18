@@ -23,17 +23,17 @@ export class LeaguesService {
         const league = new this.leagueModel(createRaceDto);
         return await league.save() 
     }
-    async getById(idRace): Promise<League>{
-        return await this.leagueModel.findById(idRace.id)
+    async getById(idRace: string): Promise<League>{
+        return await this.leagueModel.findById(idRace)
     }
-    async updateById(idRace, updateRaceDto: UpdateLeagueDto): Promise<League>{
-        return await this.leagueModel.findByIdAndUpdate(idRace.id, updateRaceDto)
+    async updateById(idRace: string, updateRaceDto: UpdateLeagueDto): Promise<League>{
+        return await this.leagueModel.findByIdAndUpdate(idRace, updateRaceDto)
     }
-    async deleteById(idRace): Promise<League>{
-        const league =  this.leagueModel.findById(idRace.id);
-        const stages = await this.stageModel.find({league:idRace.id})
+    async deleteById(idRace: string): Promise<League>{
+        const league =  this.leagueModel.findById(idRace);
+        const stages = await this.stageModel.find({league:idRace})
         stages.forEach( async (element)  => await this.raceModel.remove({stage: element._id}).exec());
-        await this.stageModel.remove({league:idRace.id}).exec();
+        await this.stageModel.remove({league:idRace}).exec();
         return league.remove()
     }
 }

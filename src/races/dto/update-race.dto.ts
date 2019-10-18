@@ -1,16 +1,23 @@
 import { ApiModelProperty } from "@nestjs/swagger";
+import { IsString, IsNotEmpty } from "class-validator";
 
 export class UpdateRaceDto {
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
+    @IsNotEmpty ()
     readonly place: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
+    @IsNotEmpty ()
     readonly time: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsNotEmpty ()
     readonly stage: any;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsNotEmpty ()
     readonly user: any;
 }

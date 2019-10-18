@@ -40,6 +40,7 @@ export class UsersService {
     async login(loginUserDto: LoginUserDto) {
         const { login, password } = loginUserDto;
         const user = await this.userModel.findOne({login});
+        console.log(user)
         if(!user) {
             throw new Error('Unable user')
         }
@@ -73,9 +74,8 @@ export class UsersService {
          return user.remove()
     }
 
-    async regLeague(currentUser, titleLeague): Promise<object> {
+    async regLeague(currentUser, title): Promise<object> {
         const {_id} = currentUser;
-        const { title } = titleLeague
         const league = await this.leagueModel.findOne({title});
             if(!league){
                 throw new Error('unknown league')
@@ -91,11 +91,10 @@ export class UsersService {
     }
 
     async getById(idUser): Promise<User>{
-        return await this.userModel.findById(idUser.id)
+        return await this.userModel.findById(idUser)
     }
 
-    async getRace(loginUser): Promise<object>{
-        const login =  { loginUser } 
+    async getRace(login: string): Promise<object>{
         const result = await this.userModel.aggregate([
             {$match: {login: login}},
             {
@@ -110,8 +109,7 @@ export class UsersService {
         return result
     }
     
-    async getLeague(loginUser): Promise<object>{
-        const login =  { loginUser }   
+    async getLeague(login: string): Promise<object>{
         const result = await this.userModel.aggregate([
             {$match: {login: login}},
             {

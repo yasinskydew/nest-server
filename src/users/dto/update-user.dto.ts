@@ -1,18 +1,24 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-
+import { IsNotEmpty, IsString, MinLength, MaxLength, NotContains } from 'class-validator';
 export class UpdateUserDto {
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
+    @IsNotEmpty ()
+    @MaxLength(10)
     readonly login: string;
 
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
     readonly name: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsString ()
     readonly surname: string;
     
-    @ApiModelProperty({ required: false })
+    @ApiModelProperty()
+    @IsNotEmpty ()
+    @MinLength(8)
+    @MaxLength(15)
+    @NotContains('password')
     readonly password: string;
-    
-    @ApiModelProperty({ required: false })
-    readonly role: string;
 }

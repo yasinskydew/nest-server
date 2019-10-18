@@ -26,27 +26,27 @@ constructor(private readonly racesService: RacesService){}
     @Get(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async getRaceById(@Param() raceId: string){
+    async getRaceById(@Param('id') raceId: string){
         return await this.racesService.getById(raceId)
     }
     @Put(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
     @ApiCreatedResponse({ description: 'The record has been successfully updated.', type: UpdateRaceDto })
-    async updateRaceById(@Param() raceId: string, @Body() updateRace:UpdateRaceDto){
+    async updateRaceById(@Param('id') raceId: string, @Body() updateRace:UpdateRaceDto){
         return await this.racesService.updateById(raceId, updateRace)
     }
     @Delete(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async deleteRaceById(@Param() raceId: string){
+    async deleteRaceById(@Param('id') raceId: string){
         return await this.racesService.deleteById(raceId)
     }
     @Get('league/:seasonLeague')
     @ApiImplicitParam({ name: 'season', enum: ['Winter', 'Spring', "Autumn", "Summer"] })
     @UseGuards(new AdminGuard())
     async getRaceWithStage(
-        @Param() seasonLeague: object
+        @Param('seasonLeague') seasonLeague: string
         ): Promise<object>{
         return await this.racesService.getStage(seasonLeague)
     }

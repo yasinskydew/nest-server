@@ -27,20 +27,20 @@ export class StagesController {
     @Get(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async getStageById(@Param() stageId: string){
+    async getStageById(@Param('id') stageId: string){
         return await this.stagesService.getById(stageId)
     }
     @Put(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
     @ApiCreatedResponse({ description: 'The record has been successfully updated.', type: UpdateStageDto })
-    async updateStageById(@Param() stageId: string, @Body() updateStage: UpdateStageDto){
+    async updateStageById(@Param('id') stageId: string, @Body() updateStage: UpdateStageDto){
         return await this.stagesService.updateById(stageId, updateStage)
     }
     @Delete(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async deleteStageById(@Param() stageId: string){
+    async deleteStageById(@Param('id') stageId: string){
         return await this.stagesService.deleteById(stageId)
     }   
 }

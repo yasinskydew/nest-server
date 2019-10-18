@@ -27,20 +27,20 @@ export class LeaguesController {
     @Get(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async getSLeagueyId(@Param() leagueId: string){
+    async getSLeagueyId(@Param('id') leagueId: string){
         return await this.leaguesService.getById(leagueId)
     }
     @Put(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
     @ApiCreatedResponse({ description: 'The record has been successfully create.', type: UpdateLeagueDto })
-    async updateLeagueById(@Param() leagueId: string, @Body() updateLeague: UpdateLeagueDto){
+    async updateLeagueById(@Param('id') leagueId: string, @Body() updateLeague: UpdateLeagueDto){
         return await this.leaguesService.updateById(leagueId, updateLeague)
     }
     @Delete(':id')
     @ApiImplicitParam({ name: 'id' })
     @UseGuards(new AdminGuard())
-    async deleteLeagueById(@Param() leagueId: string){
+    async deleteLeagueById(@Param('id') leagueId: string){
         return await this.leaguesService.deleteById(leagueId)
     }   
 }
