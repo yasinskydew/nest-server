@@ -1,0 +1,1 @@
+{"version":3,"file":"leagues.providers.js","sourceRoot":"","sources":["../../src/leagues/leagues.providers.ts"],"names":[],"mappings":";;AACA,qDAAgD;AAEnC,QAAA,gBAAgB,GAAG;IAC5B;QACI,OAAO,EAAE,cAAc;QACvB,UAAU,EAAE,CAAC,UAAsB,EAAE,EAAE,CAAC,UAAU,CAAC,KAAK,CAAC,QAAQ,EAAE,6BAAY,CAAC;QAChF,MAAM,EAAE,CAAC,qBAAqB,CAAC;KAClC;CACJ,CAAC"}
