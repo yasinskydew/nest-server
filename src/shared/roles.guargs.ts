@@ -17,7 +17,7 @@ export class AdminGuard implements CanActivate {
 
   async validateToken(auth: string){
     try {
-      const decoded = jwt.verify(auth, 'expressapp');
+      const decoded = jwt.verify(auth, process.env.JWT_SECRET);
       return decoded;
     } catch (err) {
       throw new HttpException(onmessage, HttpStatus.FORBIDDEN)

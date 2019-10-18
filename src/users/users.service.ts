@@ -21,7 +21,7 @@ export class UsersService {
             _id: user._id.toString(),
             login: user.login,
             role: user.role
-        }, 'expressapp');
+        }, process.env.JWT_SECRET);
     }
 
 
@@ -40,7 +40,6 @@ export class UsersService {
     async login(loginUserDto: LoginUserDto) {
         const { login, password } = loginUserDto;
         const user = await this.userModel.findOne({login});
-        console.log(user)
         if(!user) {
             throw new Error('Unable user')
         }
